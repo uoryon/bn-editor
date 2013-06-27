@@ -39,8 +39,7 @@ BNeditor.prototype = {
     self.editorDOM = self.doc.querySelector(".container");
     self.toolbar = self.editorDOM.children[0];
     self.content = self.editorDOM.children[1];
-    self.content.contentEditable = "true";
-
+    self.content.setAttribute("contenteditable", "true");
     for( prop in options){
       self[prop](options[prop]);
     }
@@ -70,11 +69,12 @@ BNeditor.prototype = {
     self.content.appendChild();
   },
   Bold:function(){
-    var div = document.createElement('div'),
+    var div = document.createElement('input'),
         self = this;
     div.className = "toolicon";
+    div.type = "button";
     div.id = "bold";
-    div.innerHTML = "B";
+    div.value = "B";
     self.toolbar.appendChild(div);
     div.addEventListener("click", function(e){
       var oEle = e.target;
@@ -84,13 +84,55 @@ BNeditor.prototype = {
       }
       else{
         oEle.classList.add("toolon");
-        //var oB = self.doc.createElement("");
+        //var oB = self.doc.createElement("span");
         //self.content.appendChild(oB);
+        //oB.focus();
       }
     }, false);
   },
   Italic:function(){
+    var div = document.createElement('input'),
+        self = this;
+    div.className = "toolicon";
+    div.type = "button";
+    div.id = "italic";
+    div.value = "I";
+    self.toolbar.appendChild(div);
+    div.addEventListener("click", function(e){
+      var oEle = e.target;
+      console.log(self.doc.execCommand("italic", false, null));
+      if(oEle.classList.contains("toolon")){
+        oEle.classList.remove("toolon");
+      }
+      else{
+        oEle.classList.add("toolon");
+        //var oB = self.doc.createElement("span");
+        //self.content.appendChild(oB);
+        //oB.focus();
+      }
+    }, false);
   },
   Underline:function(){
+    var div = document.createElement('input'),
+        self = this;
+    div.className = "toolicon";
+    div.type = "button";
+    div.id = "underline";
+    div.value = "U";
+    self.toolbar.appendChild(div);
+    div.addEventListener("click", function(e){
+      var oEle = e.target;
+      console.log(self.doc.execCommand("underline", false, null));
+      if(oEle.classList.contains("toolon")){
+        oEle.classList.remove("toolon");
+      }
+      else{
+        oEle.classList.add("toolon");
+        //var oB = self.doc.createElement("span");
+        //self.content.appendChild(oB);
+        //oB.focus();
+      }
+    }, false);
+  
   },
 }
